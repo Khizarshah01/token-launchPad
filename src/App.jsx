@@ -1,46 +1,34 @@
 import './App.css'
+import { TokenLaunchpad } from './components/TokenLaunchpad'
+
+// wallet adapter imports
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import {
-  WalletModalProvider,
-  WalletDisconnectButton,
-  WalletMultiButton
+    WalletModalProvider,
+    WalletDisconnectButton,
+    WalletMultiButton
 } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 function App() {
-
-
   return (
-    <>
+    <div style={{width: "100vw"}}>
       <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
         <WalletProvider wallets={[]} autoConnect>
-          <WalletModalProvider>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: 20
-            }}>
-              <WalletMultiButton />
-              <WalletDisconnectButton />
-            </div>
-            <div style={{
-              height: '100vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'
-            }}>
-              <h1>Solana Token Launchpad</h1>
-              <input className='inputText' type='text' placeholder='Name'></input> <br />
-              <input className='inputText' type='text' placeholder='Symbol'></input> <br />
-              <input className='inputText' type='text' placeholder='Image URL'></input> <br />
-              <input className='inputText' type='text' placeholder='Initial Supply'></input> <br />
-              <button className='btn'>Create a token</button>
-            </div>
-          </WalletModalProvider>
+            <WalletModalProvider>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: 20
+              }}>
+                <WalletMultiButton />
+                <WalletDisconnectButton />
+              </div>
+              <TokenLaunchpad></TokenLaunchpad>
+            </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
-    </>
+    </div>
   )
 }
 
