@@ -1,4 +1,3 @@
-// token.utils.js
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 import { generateSigner, percentAmount } from "@metaplex-foundation/umi";
@@ -34,7 +33,7 @@ export async function createFungibleToken(formData, connection, walletAdapter) {
     uri,
     sellerFeeBasisPoints: percentAmount(0),
     decimals: Number(decimals),
-    amount: Number(supply),
+    amount: Number((supply*(10**decimals))),
     tokenOwner: umi.identity.publicKey,
     tokenStandard: TokenStandard.Fungible,
   }).sendAndConfirm(umi);

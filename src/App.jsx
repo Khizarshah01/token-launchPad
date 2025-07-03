@@ -1,5 +1,6 @@
 import './App.css'
 import Home from './pages/Home';
+import Navbar from './components/Navbar';
 import TokenCreation from './pages/TokenCreation';
 import { BrowserRouter, Routes, Route } from "react-router";
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
@@ -14,6 +15,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/create-token' element={<TokenCreation />} />
             </Routes>
+            {/* <Navbar /> */}
           </BrowserRouter>
         </WalletModalProvider>
       </WalletProvider>
