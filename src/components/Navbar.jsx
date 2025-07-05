@@ -1,48 +1,106 @@
 import { Link, useLocation } from 'react-router-dom';
-import { IconButton, Tooltip, Separator, Flex } from '@radix-ui/themes';
-import React from 'react';
-import { CiHome, CiCoinInsert, CiImageOn, CiUser } from 'react-icons/ci';
+import { Home, Coins, Image, User } from 'lucide-react';
+import { BiCoinStack } from 'react-icons/bi';
+import { motion } from 'framer-motion';
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useSolanaChain } from "../hooks/useSolanaChain";
+import { useDarkMode } from "../hooks/useDarkMode";
 
-
-const navBackground = {
-  backgroundColor: 'hsla(0, 0%, 100%, 0.12)',
-  backdropFilter: 'blur(12px)',
-  border: '1px solid hsla(0, 0%, 100%, 0.08)',
-  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
-};
+const navItems = [
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/create-token', label: 'Tokens', icon: Coins },
+  { to: '/nft', label: 'NFT', icon: Image },
+  { to: '/account', label: 'Account', icon: User },
+];
 
 const Navbar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-
-  const navItems = [
-    { to: '/', icon: <CiHome className="w-6 h-6" />, tooltip: 'Home' },
-    { to: '/token', icon: <CiCoinInsert className="w-6 h-6" />, tooltip: 'Token' },
-    { to: '/nft', icon: <CiImageOn className="w-6 h-6" />, tooltip: 'NFT' },
-    { to: '/account', icon: <CiUser className="w-6 h-6" />, tooltip: 'Account' },
-  ];
+  const { isDevnet, toggleChain } = useSolanaChain();
+  const { isDarkMode } = useDarkMode();
 
   return (
-    <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-      <div
-        style={navBackground}
-        className="rounded-full w-[90vw] max-w-[400px] px-4 py-2 flex items-center justify-between shadow-md border dark:border-white/20"
-      >
-        <Flex align="center" justify="between" gap="2" className="w-full">
-          {navItems.map(({ to, icon, tooltip }) => (
-            <Tooltip key={to} content={tooltip}>
-              <Link to={to}>
-                <IconButton variant="ghost" className="hover:bg-gray-200/30 dark:hover:bg-gray-800/50">
-                  {React.cloneElement(icon, {
-                    className: `w-6 h-6 ${currentPath === to ? 'text-amber-500' : 'text-gray-700 dark:text-gray-300'}`
-                  })}
-                </IconButton>
+    <motion.header
+      className="absolute top-0 left-0 w-full z-50 border-b border-gray-200 dark:border-gray-800 backdrop-blur-sm bg-white/30 dark:bg-black/20"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Logo */}
+        <div className="flex items-center gap-8">
+          <Link to="/" className="flex items-center space-x-2">
+            <BiCoinStack className="h-6 w-6 text-gray-900 dark:text-white" />
+            <span className="font-bold text-xl text-gray-900 dark:text-white">GenisisToken</span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex gap-6">
+            {navItems.map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                className={`text-sm font-medium transition-colors ${
+                  currentPath === to
+                    ? 'text-black dark:text-white'
+                    : 'text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white'
+                }`}
+              >
+                {label}
               </Link>
-            </Tooltip>
-          ))}
-        </Flex>
+            ))}
+          </nav>
+        </div>
+
+        {/* Right Controls */}
+        <div className="flex items-center gap-4">
+          {/* Devnet Button */}
+          <button
+            onClick={toggleChain}
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm border rounded-md text-gray-600 dark:text-white border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900"
+          >
+            <span className="relative flex h-2 w-2">
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full ${
+                  isDevnet ? 'bg-green-400' : 'bg-red-400'
+                } opacity-75`}
+              ></span>
+              <span
+                className={`relative inline-flex rounded-full h-2 w-2 ${
+                  isDevnet ? 'bg-green-500' : 'bg-red-500'
+                }`}
+              ></span>
+            </span>
+            Devnet
+          </button>
+
+          {/* Wallet Connect */}
+          <WalletMultiButton
+            style={{
+              backgroundColor: 'transparent',
+              color: isDarkMode ? '#ffffff' : '#000000',
+              padding: '2px 16px',
+              borderColor: '#d1d5db',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontWeight: 'bold',
+            }}
+          />
+        </div>
       </div>
-    </nav>
+
+      {/* Mobile Navigation (optional) */}
+      <div className="md:hidden px-4 py-2 border-t dark:border-gray-700 bg-white dark:bg-black">
+        <div className="flex justify-between">
+          {navItems.map(({ to, icon: Icon }) => (
+            <Link key={to} to={to} className="flex flex-col items-center text-xs text-gray-600 dark:text-gray-300">
+              <Icon className={`w-5 h-5 mb-1 ${currentPath === to ? 'text-black dark:text-white' : ''}`} />
+              {to.slice(1).charAt(0).toUpperCase() + to.slice(2)}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </motion.header>
   );
 };
 
