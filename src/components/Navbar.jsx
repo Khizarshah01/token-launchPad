@@ -9,7 +9,6 @@ import { useDarkMode } from "../hooks/useDarkMode";
 const navItems = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/create-token', label: 'Tokens', icon: Coins },
-  { to: '/nft', label: 'NFT', icon: Image },
   { to: '/account', label: 'Account', icon: User },
 ];
 
@@ -30,7 +29,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center space-x-2">
-            <BiCoinStack className="h-6 w-6 text-gray-900 dark:text-white" />
+            <img src="/token.png" className='h-8 w-8' alt="image" />
             <span className="font-bold text-xl text-gray-900 dark:text-white">GenisisToken</span>
           </Link>
 
