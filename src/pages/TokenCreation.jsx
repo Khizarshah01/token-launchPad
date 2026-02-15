@@ -46,18 +46,18 @@ function TokenCreation() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 p-4 md:p-8 flex items-center justify-center">
-            <div className="w-full max-w-2xl bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 shadow-2xl">
+        <div className="min-h-screen bg-background text-foreground pt-24 pb-12 px-4 flex items-center justify-center">
+            <div className="w-full max-w-2xl bg-card rounded-xl p-8 border border-border shadow-lg">
                 <div className="flex flex-col items-center mb-8">
-                    <div className="h-16 w-16 bg-gradient-to-br from-green-400 to-purple-500 rounded-full flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
                         </svg>
                     </div>
-                    <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-purple-500">
+                    <h2 className="text-3xl font-bold text-primary">
                         Create Token
                     </h2>
-                    <p className="text-gray-400 mt-2 text-center">
+                    <p className="text-muted-foreground mt-2 text-center">
                         Deploy your own SPL token on the Solana blockchain
                     </p>
                 </div>
@@ -65,7 +65,7 @@ function TokenCreation() {
                 <form onSubmit={submitData} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Token Name</label>
+                            <label className="block text-sm font-medium mb-2 text-foreground">Token Name</label>
                             <div className="relative">
                                 <input
                                     name="name"
@@ -73,14 +73,14 @@ function TokenCreation() {
                                     value={formData.name}
                                     onChange={handleChange}
                                     placeholder="e.g. My Awesome Token"
-                                    className="w-full px-4 py-3 bg-gray-700/50 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-all"
+                                    className="w-full px-4 py-3 bg-input text-foreground border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-muted-foreground/50"
                                     required
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Symbol</label>
+                            <label className="block text-sm font-medium mb-2 text-foreground">Symbol</label>
                             <div className="relative">
                                 <input
                                     name="symbol"
@@ -88,19 +88,19 @@ function TokenCreation() {
                                     value={formData.symbol}
                                     onChange={handleChange}
                                     placeholder="e.g. MAT"
-                                    className="w-full px-4 py-3 bg-gray-700/50 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-all uppercase"
+                                    className="w-full px-4 py-3 bg-input text-foreground border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all uppercase placeholder:text-muted-foreground/50"
                                     required
                                     maxLength="6"
                                     style={{ textTransform: 'uppercase' }}
                                 />
-                                <span className="absolute right-3 top-3.5 text-xs text-gray-400">{6 - formData.symbol.length} left</span>
+                                <span className="absolute right-3 top-3.5 text-xs text-muted-foreground">{6 - formData.symbol.length} left</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Total Supply</label>
+                            <label className="block text-sm font-medium mb-2 text-foreground">Total Supply</label>
                             <div className="relative">
                                 <input
                                     name="supply"
@@ -108,20 +108,20 @@ function TokenCreation() {
                                     value={formData.supply}
                                     onChange={handleChange}
                                     placeholder="e.g. 1000000000"
-                                    className="w-full px-4 py-3 bg-gray-700/50 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-all"
+                                    className="w-full px-4 py-3 bg-input text-foreground border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-muted-foreground/50"
                                     required
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Decimals</label>
+                            <label className="block text-sm font-medium mb-2 text-foreground">Decimals</label>
                             <div className="relative">
                                 <select
                                     name="decimals"
                                     value={formData.decimals}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-gray-700/50 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-all appearance-none"
+                                    className="w-full px-4 py-3 bg-input text-foreground border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all appearance-none"
                                     required
                                 >
                                     <option value="6">6 (Default for most tokens)</option>
@@ -129,7 +129,7 @@ function TokenCreation() {
                                     <option value="0">0 (NFT-like)</option>
                                     <option value="2">2 (Stablecoin-like)</option>
                                 </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-muted-foreground">
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                                     </svg>
@@ -139,7 +139,7 @@ function TokenCreation() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-gray-300">Metadata URI (Optional)</label>
+                        <label className="block text-sm font-medium mb-2 text-foreground">Metadata URI (Optional)</label>
                         <div className="relative">
                             <input
                                 name="uri"
@@ -147,10 +147,10 @@ function TokenCreation() {
                                 value={formData.uri || ''}
                                 placeholder="https://yourdomain.com/metadata.json"
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-gray-700/50 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-all"
+                                className="w-full px-4 py-3 bg-input text-foreground border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-muted-foreground/50"
                             />
                         </div>
-                        <p className="mt-1 text-xs text-gray-400">
+                        <p className="mt-1 text-xs text-muted-foreground">
                             Leave blank to use default metadata or provide a URL to your JSON file
                         </p>
                     </div>
@@ -160,8 +160,8 @@ function TokenCreation() {
                             type="submit"
                             disabled={loading || !wallet.publicKey}
                             className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${loading || !wallet.publicKey
-                                    ? 'bg-gray-600 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-green-400 to-purple-500 hover:from-green-500 hover:to-purple-600 text-gray-900 hover:shadow-lg'
+                                ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                                : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg'
                                 }`}
                         >
                             {!wallet.publicKey ? (
@@ -173,7 +173,7 @@ function TokenCreation() {
                                 </>
                             ) : loading ? (
                                 <>
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>

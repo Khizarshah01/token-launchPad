@@ -38,18 +38,18 @@ function Account() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 p-4 md:p-8">
-      <div className="mt-20 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-24">
+      <div className="max-w-6xl mx-auto mt-20">
         <div className="flex flex-col space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-purple-500">
+            <h1 className="text-3xl md:text-4xl font-bold text-primary">
               Account Overview
             </h1>
             {wallet.publicKey && (
-              <div className="px-3 py-1 bg-gray-800 rounded-full text-xs md:text-sm">
-                <span className="text-gray-400">Connected: </span>
-                <span className="font-mono text-green-400">
+              <div className="px-3 py-1 bg-secondary rounded-full text-xs md:text-sm border border-secondary/50">
+                <span className="text-muted-foreground">Connected: </span>
+                <span className="font-mono text-primary font-bold">
                   {`${wallet.publicKey.toString().slice(0, 4)}...${wallet.publicKey.toString().slice(-4)}`}
                 </span>
               </div>
@@ -58,9 +58,9 @@ function Account() {
 
           {/* Wallet not connected state */}
           {!wallet.publicKey && (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 text-center border border-gray-700">
-              <p className="text-xl text-gray-400">Wallet not connected</p>
-              <p className="text-gray-500 mt-2">Connect your wallet to view your assets</p>
+            <div className="bg-card rounded-xl p-8 text-center border border-border shadow-sm">
+              <p className="text-xl text-muted-foreground">Wallet not connected</p>
+              <p className="text-muted-foreground/80 mt-2">Connect your wallet to view your assets</p>
             </div>
           )}
 
@@ -68,8 +68,8 @@ function Account() {
           {loading && (
             <div className="flex justify-center items-center h-64">
               <div className="animate-pulse flex flex-col items-center">
-                <div className="h-12 w-12 bg-green-400/20 rounded-full mb-4"></div>
-                <p className="text-gray-400">Loading your assets...</p>
+                <div className="h-12 w-12 bg-primary/20 rounded-full mb-4"></div>
+                <p className="text-muted-foreground">Loading your assets...</p>
               </div>
             </div>
           )}
@@ -78,34 +78,34 @@ function Account() {
           {wallet.publicKey && !loading && (
             <>
               {/* SOL Balance Card */}
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700 shadow-lg">
+              <div className="bg-card rounded-xl p-6 border border-border shadow-sm transition-shadow hover:shadow-md">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-lg font-medium text-gray-400">SOL Balance</h2>
-                    <p className="text-3xl md:text-4xl font-bold mt-1 text-white">
-                      {formatBalance(solBalance)} <span className="text-green-400">SOL</span>
+                    <h2 className="text-lg font-medium text-muted-foreground">SOL Balance</h2>
+                    <p className="text-3xl md:text-4xl font-bold mt-1 text-foreground">
+                      {formatBalance(solBalance)} <span className="text-primary">SOL</span>
                     </p>
                   </div>
-                  <div className="h-14 w-14 rounded-full bg-gradient-to-br flex items-center justify-center">
-                  <img src="/solana.png"  alt="image" />
+                  <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center p-2">
+                    <img src="/solana.png" alt="Solana" className="w-full h-full object-contain" />
                   </div>
                 </div>
               </div>
 
               {/* Tokens Section */}
               <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4 flex items-center">
-                  <span className="bg-gradient-to-r from-green-400 to-purple-500 bg-clip-text text-transparent">
+                <h2 className="text-xl font-semibold mb-4 flex items-center text-foreground">
+                  <span className="text-primary">
                     Your Tokens
                   </span>
-                  <span className="ml-2 px-2 py-1 bg-gray-800 rounded-full text-xs">
+                  <span className="ml-2 px-2 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-bold">
                     {assets.length} {assets.length === 1 ? 'token' : 'tokens'}
                   </span>
                 </h2>
 
                 {assets.length === 0 ? (
-                  <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
-                    <p className="text-gray-400">No tokens found in your wallet</p>
+                  <div className="bg-card rounded-xl p-8 text-center border border-border shadow-sm">
+                    <p className="text-muted-foreground">No tokens found in your wallet</p>
                   </div>
                 ) : (
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -116,27 +116,27 @@ function Account() {
                       const symbol = metadata.symbol;
 
                       return (
-                        <div 
-                          key={mint.toString()} 
-                          className="bg-gray-800/50 hover:bg-gray-800/70 transition-all duration-200 p-4 rounded-xl border border-gray-700 shadow hover:shadow-lg"
+                        <div
+                          key={mint.toString()}
+                          className="bg-card hover:bg-card/80 transition-all duration-200 p-4 rounded-xl border border-border shadow-sm hover:shadow-md group"
                         >
                           <div className="flex items-start space-x-4">
                             <img
                               src={asset.imageUrl || '/placeholder-token.png'}
                               alt={name}
-                              className="h-12 w-12 rounded-lg object-cover bg-gray-700"
+                              className="h-12 w-12 rounded-lg object-cover bg-muted border border-border"
                               onError={(e) => {
                                 e.target.src = '/placeholder-token.png';
                               }}
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="text-lg font-semibold truncate">{name}</h3>
-                              <p className="text-sm text-gray-400">{symbol}</p>
+                              <h3 className="text-lg font-semibold truncate text-foreground group-hover:text-primary transition-colors">{name}</h3>
+                              <p className="text-sm text-muted-foreground">{symbol}</p>
                               <div className="mt-2 flex justify-between items-end">
-                                <p className="text-sm font-mono text-gray-400 truncate max-w-[120px]">
+                                <p className="text-sm font-mono text-muted-foreground/70 truncate max-w-[120px]">
                                   {`${mint.toString().slice(0, 4)}...${mint.toString().slice(-4)}`}
                                 </p>
-                                <p className="text-lg font-bold text-green-400">
+                                <p className="text-lg font-bold text-primary">
                                   {amount.toLocaleString()}
                                 </p>
                               </div>
